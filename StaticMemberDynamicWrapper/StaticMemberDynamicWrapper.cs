@@ -37,7 +37,7 @@ namespace StaticMemberDynamicWrapper
 
         public override Boolean TryInvokeMember(InvokeMemberBinder binder, Object[] args,
            out Object result) {
-            MethodInfo method = FindMethod(binder.Name, null);
+            MethodInfo method = FindMethod(binder.Name, args.Select(a => a.GetType()).ToArray());
             if (method == null) { result = null; return false; }
             result = method.Invoke(null, args);
             return true;
